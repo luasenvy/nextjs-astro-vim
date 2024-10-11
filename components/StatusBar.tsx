@@ -29,6 +29,7 @@ export default forwardRef(function StatusBar(
         router.back();
       },
     ],
+    ["home", () => router.push("/")],
     ["who", () => router.push("/about")],
     ["about", () => router.push("/about")],
     ["blog", () => router.push("/blog")],

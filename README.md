@@ -17,3 +17,9 @@
 | `npm run build`        | `rm -rf .next && next build`                       |
 | `npm run start`        | `next start`                                       |
 | `npm run lint`         | `next lint`                                        |
+
+## Roadmap
+
+[ ] IBM DOS And Green Themes [cool-retro-term](https://github.com/Swordfish90/cool-retro-term)
+[ ] Improve Help Page
+[ ] Change Line Number Render Process ( Default Tilde -> Command `:set number` )
