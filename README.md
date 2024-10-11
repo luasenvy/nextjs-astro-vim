@@ -20,6 +20,6 @@
 
 ## Roadmap
 
-[ ] IBM DOS And Green Themes [cool-retro-term](https://github.com/Swordfish90/cool-retro-term)
-[ ] Improve Help Page
-[ ] Change Line Number Render Process ( Default Tilde -> Command `:set number` )
+- [ ] IBM DOS And Green Themes [cool-retro-term](https://github.com/Swordfish90/cool-retro-term)
+- [ ] Improve Help Page
+- [ ] Change Line Number Render Process ( Default Tilde -> Command `:set number` )
