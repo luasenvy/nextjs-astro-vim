@@ -93,7 +93,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
     >
       <div className="flex">
         <Sidebar tildeRef={tildeRef} lineNumbers={lineNumbers} mode={mode} />
-        <main ref={mainRef} className="p-4 mb-6 flex-grow">
+        <main ref={mainRef} className="p-4 mb-6 flex-grow overflow-x-hidden">
           {children}
         </main>
       </div>

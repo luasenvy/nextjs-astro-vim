@@ -45,3 +45,96 @@ a {
   @apply text-nvim-text-selection bg-nvim-bg-text-selection;
 
 }
+
+hr {
+  @apply border-nvim-placeholder/80;
+}
+
+ol {
+  @apply list-decimal;
+}
+
+ul {
+  &.contains-task-list {
+    @apply pl-0;
+  }
+
+  &:not(.contains-task-list) {
+    li {
+      @apply relative;
+  
+      &:before {
+        @apply absolute -left-6 top-3 bg-nvim-text-primaryDark w-1 h-1 rounded-full;
+        content: "";
+      }
+    }
+  }
+}
+
+ol, ul {
+  ol, ul {
+    @apply relative;
+    &:before {
+      @apply absolute -left-7 h-full border-l border-l-nvim-placeholder;
+      content: "";
+    }
+  }
+}
+
+blockquote {
+  @apply border border-nvim-primary drop-shadow-[0px_0px_1px_var(--nvim-primary)] text-nvim-primary;
+}
+
+del {
+  text-decoration: var(--nvim-error) solid line-through;
+}
+
+kbd {
+  @apply text-nvim-text-secondary;
+}
+
+mark {
+  @apply bg-transparent text-nvim-text-primaryDark;
+  text-decoration: var(--nvim-primary) wavy underline;
+  font-weight: 700;
+}
+
+table {
+  @apply w-full bg-nvim-bg-paper/40 rounded-t-lg;
+
+  thead tr:nth-child(1) {
+    @apply rounded-t-lg border-b border-b-nvim-text-primaryDark;
+  }
+
+  tbody tr:nth-child(odd) {
+    @apply bg-nvim-bg-paper/60;
+  }
+
+  tbody tr:hover {
+    @apply bg-nvim-bg-paper/80;
+  }
+
+  th, td {
+    @apply p-1.5 !important;
+  }
+
+  thead {
+    tr {
+      th {
+        @apply text-nvim-text-primaryDark;
+        font-weight: 700;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+
+      }
+    }
+  }
+}
+
+code {
+  @apply text-nvim-placeholder;
+}
