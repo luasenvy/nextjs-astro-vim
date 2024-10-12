@@ -22,7 +22,7 @@ export default function Sidebar({ mode, tildeRef, lineNumbers = 1 }: SidebarProp
   }, [pathname]);
 
   return (
-    <div className="bg-nvim-bg text-nvim-gray w-6 flex-shrink-0 text-right pr-2">
+    <div className="bg-nvim-bg-default text-nvim-placeholder w-6 flex-shrink-0 text-right pr-2">
       <div className="h-full">
         <div ref={tildeRef}>{isTilde ? "~" : 1}</div>
 

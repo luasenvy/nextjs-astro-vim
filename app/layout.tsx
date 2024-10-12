@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={classnames(
           ubuntuMono.variable,
-          "bg-nvim-bg text-nvim-text font-mono flex flex-col h-screen"
+          "bg-nvim-bg-default text-nvim-text-primary font-mono flex flex-col h-screen"
         )}
       >
         {children}

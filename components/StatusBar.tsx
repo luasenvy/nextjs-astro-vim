@@ -118,7 +118,7 @@ export default forwardRef(function StatusBar(
     <div
       id="status-bar"
       className={classnames(
-        "bg-nvim-statusline text-nvim-fg h-6 px-2 flex items-center text-sm gap-4",
+        "bg-nvim-bg-paper text-nvim-fg h-6 px-2 flex items-center text-sm gap-4",
         className
       )}
       {...props}

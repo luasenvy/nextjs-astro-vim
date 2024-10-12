@@ -20,7 +20,7 @@ time {
   @apply drop-shadow-[0px_0px_8px_rgba(255,255,255,0.32)];
 
   &.font-bold {  
-    @apply text-amber-600 drop-shadow-[0px_0px_4px_rgba(217,119,6,0.16)];
+    @apply text-nvim-text-primaryDark drop-shadow-[0px_0px_4px_rgba(217,119,6,0.16)];
     font-weight: 700;
   }
 }
@@ -37,5 +37,6 @@ a {
 }
 
 ::selection {
-  @apply bg-amber-950 text-amber-800;
+  @apply text-nvim-text-selection bg-nvim-bg-text-selection;
+
 }

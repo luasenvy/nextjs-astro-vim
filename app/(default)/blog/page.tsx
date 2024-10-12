@@ -101,11 +101,11 @@ export default function BlogPage() {
             {metadata.title}
           </Link>
 
-          <p className="text-sm text-gray-400 line-clamp-3">{metadata.summary}</p>
+          <p className="text-sm text-nvim-text-secondary line-clamp-3">{metadata.summary}</p>
 
           <time
             dateTime={new Date(metadata.date).toISOString()}
-            className="text-right text-sm text-gray-400"
+            className="text-right text-sm text-nvim-text-secondary"
           >
             {new Date(metadata.date).toLocaleDateString(undefined, {
               year: "numeric",
