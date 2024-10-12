@@ -30,21 +30,33 @@ export default forwardRef(function StatusBar(
 
   const statusbarContext = useContext(StatusbarContext);
 
+  const quit = () => {
+    if (pathname === "/") throw new Error("cannot quit from root page");
+    router.back();
+  };
   const keymap = new Map([
-    [
-      "q",
-      () => {
-        if (pathname === "/") throw new Error("cannot quit from root page");
-        router.back();
-      },
-    ],
+    ["q", quit],
+    ["quit", quit],
+    ["exit", quit],
+    ["q!", quit],
+    ["wq", quit],
+    ["wq!", quit],
+
     ["home", () => router.push("/")],
+    ["root", () => router.push("/")],
+
     ["who", () => router.push("/about")],
     ["about", () => router.push("/about")],
+
     ["blog", () => router.push("/blog")],
+    ["post", () => router.push("/blog")],
+    ["posts", () => router.push("/blog")],
+
     ["contact", () => router.push("/contact")],
+
     ["h", () => router.push("/help")],
     ["help", () => router.push("/help")],
+
     ["set number", () => statusbarContext.setMode("number")],
   ]);
 

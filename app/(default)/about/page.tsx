@@ -1,7 +1,17 @@
+"use client";
+
+import { useContext } from "react";
+
+import { StatusbarContext } from "../layout";
+
 export default function AboutPage() {
+  const statusbarContext = useContext(StatusbarContext);
+
+  statusbarContext.setFilename("about");
+
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <h1 className="text-4xl font-bold mb-8 text-nvim-blue">About</h1>
+      <h1 className="text-4xl font-bold mb-8">About</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>
         <div className="flex flex-col text-left justify-left p-10">

@@ -1,7 +1,16 @@
+"use client";
+
+import { useContext } from "react";
+
+import { StatusbarContext } from "../layout";
 export default function HelpPage() {
+  const statusbarContext = useContext(StatusbarContext);
+
+  statusbarContext.setFilename("HELP");
+
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <h1 className="text-4xl font-bold mb-8 text-nvim-blue">Help page</h1>
+      <h1 className="text-4xl font-bold mb-8">Help page</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>
         <div className="flex flex-col text-left justify-left p-10">
@@ -11,7 +20,7 @@ export default function HelpPage() {
             pages since I did not considered it necessary.
           </p>
 
-          <h2 className="p-4 text-2xl font-bold text-nvim-blue">Instructions</h2>
+          <h2 className="p-4 text-2xl font-bold">Instructions</h2>
           <p className="ml-4">
             <span className="font-bold">u</span>: Undo the last change, in this case, it navigates
             up one level.

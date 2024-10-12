@@ -1,0 +1,41 @@
+h1 {
+  @apply text-green-600 drop-shadow-[0px_0px_8px_rgba(22,163,74,0.9)];
+  font-weight: 700;
+}
+
+h2 {
+  @apply text-green-600 drop-shadow-[0px_0px_4px_rgba(22,163,74,0.9)];
+  font-weight: 600;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  @apply drop-shadow-[0px_0px_4px_rgba(217,119,6,0.9)];
+}
+
+p,
+time {
+  @apply drop-shadow-[0px_0px_8px_rgba(255,255,255,0.32)];
+
+  &.font-bold {  
+    @apply text-amber-600 drop-shadow-[0px_0px_4px_rgba(217,119,6,0.16)];
+    font-weight: 700;
+  }
+}
+
+a {
+  @apply text-sky-500 drop-shadow-[0px_0px_4px_rgba(14,165,233,0.6)];
+
+  &:hover {
+    @apply text-sky-600;
+  }
+  &:active {
+    @apply text-sky-700;
+  }
+}
+
+::selection {
+  @apply bg-amber-950 text-amber-800;
+}

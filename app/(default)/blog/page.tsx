@@ -2,13 +2,19 @@
 
 import classnames from "classnames";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+
+import { StatusbarContext } from "../layout";
 
 import posts from "@/lib/data/posts";
 import styles from "@/styles/blog.module.css";
 
 export default function BlogPage() {
   const listRef = useRef<HTMLUListElement>(null);
+
+  const statusbarContext = useContext(StatusbarContext);
+
+  statusbarContext.setFilename("blog");
 
   const [actives, setActives] = useState<Array<boolean>>(
     [true].concat(posts.slice(1).map(() => false))

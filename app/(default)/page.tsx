@@ -1,9 +1,18 @@
+"use client";
+
 import Link from "next/link";
+import { useContext } from "react";
+
+import { StatusbarContext } from "./layout";
 
 export default function HomePage() {
+  const statusbarContext = useContext(StatusbarContext);
+
+  statusbarContext.setFilename("root");
+
   return (
     <div className="flex flex-col items-center justify-center w-full pt-48">
-      <h1 className="text-4xl font-bold mb-8 text-nvim-blue">Astro Vim</h1>
+      <h1 className="text-4xl font-bold mb-8">Astro Vim</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>
         <p className="mb-2">
