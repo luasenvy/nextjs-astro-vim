@@ -11,15 +11,11 @@ import posts from "@/lib/data/posts";
 export default function BlogPage() {
   const listRef = useRef<HTMLUListElement>(null);
 
-  const statusbarContext = useContext(StatusbarContext);
-
-  useEffect(() => {
-    statusbarContext.setFilename("blog");
-  }, []);
-
   const [actives, setActives] = useState<Array<boolean>>(
     [true].concat(posts.slice(1).map(() => false))
   );
+
+  const statusbarContext = useContext(StatusbarContext);
 
   const keymap = new Map([
     [
@@ -65,6 +61,10 @@ export default function BlogPage() {
   ]);
 
   useEffect(() => {
+    statusbarContext.setFilename("blog");
+  }, []);
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
 
@@ -85,36 +85,44 @@ export default function BlogPage() {
 
   return (
     <ul ref={listRef} id="blog-list">
-      {posts.map(({ metadata }, i) => (
-        <li
-          key={`post-${i}`}
-          className={classnames(
-            "px-2 mb-8 grid lg:grid-cols-[3fr_2fr_1fr] gap-4 items-start hover:bg-white/5",
-            {
-              [`bg-white/5 active`]: actives[i],
-            }
-          )}
-          data-index={i}
-          data-href={`/blog/${metadata.slug}`}
-        >
-          <Link href={`/blog/${metadata.slug}`} className="hover:underline font-semibold post-link">
-            {metadata.title}
-          </Link>
-
-          <p className="text-sm text-nvim-text-secondary line-clamp-3">{metadata.summary}</p>
-
-          <time
-            dateTime={new Date(metadata.date).toISOString()}
-            className="text-right text-sm text-nvim-text-secondary"
+      {posts.map(({ metadata }, i) => {
+        const date = metadata.date ? new Date(metadata.date) : "unknown";
+        return (
+          <li
+            key={`post-${i}`}
+            className={classnames(
+              "px-2 mb-8 grid lg:grid-cols-[3fr_2fr_1fr] gap-4 items-start hover:bg-nvim-bg-paper/50",
+              {
+                [`bg-nvim-bg-paper/50 active`]: actives[i],
+              }
+            )}
+            data-index={i}
+            data-href={`/blog/${metadata.slug}`}
           >
-            {new Date(metadata.date).toLocaleDateString(undefined, {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
-          </time>
-        </li>
-      ))}
+            <Link
+              href={`/blog/${metadata.slug}`}
+              className="hover:underline font-semibold post-link"
+            >
+              {metadata.title}
+            </Link>
+
+            <p className="text-sm text-nvim-text-secondary line-clamp-3">{metadata.summary}</p>
+
+            <time
+              dateTime={date instanceof Date ? date.toISOString() : undefined}
+              className="text-right text-sm text-nvim-text-secondary"
+            >
+              {date instanceof Date
+                ? new Date(date).toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                : date}
+            </time>
+          </li>
+        );
+      })}
     </ul>
   );
 }

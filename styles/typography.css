@@ -1,18 +1,23 @@
 h1 {
-  @apply text-green-600 drop-shadow-[0px_0px_8px_rgba(22,163,74,0.9)];
+  @apply text-nvim-primary drop-shadow-[0px_0px_8px_var(--nvim-primary)];
   font-weight: 700;
 }
 
-h2 {
-  @apply text-green-600 drop-shadow-[0px_0px_4px_rgba(22,163,74,0.9)];
+h2,
+h3,
+h4 {
+  @apply text-nvim-primary drop-shadow-[0px_0px_6px_var(--nvim-primary)];
   font-weight: 600;
 }
 
-h3,
-h4,
-h5,
+h5 {
+  @apply text-nvim-primary drop-shadow-[0px_0px_4px_var(--nvim-primary)];
+  font-weight: 500;
+}
+
 h6 {
-  @apply drop-shadow-[0px_0px_4px_rgba(217,119,6,0.9)];
+  @apply text-nvim-primary drop-shadow-[0px_0px_4px_var(--nvim-primary)];
+  font-weight: 400;
 }
 
 p,

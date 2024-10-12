@@ -127,7 +127,7 @@ export default forwardRef(function StatusBar(
         <input
           ref={inputRef}
           className={classnames("w-full bg-transparent outline-none", {
-            "text-red-500": level === "error",
+            "text-nvim-error": level === "error",
           })}
           readOnly={disabled}
           value={status}

@@ -1,5 +1,7 @@
 "use client";
 
+import "prismjs/themes/prism-tomorrow.css";
+
 import { useParams } from "next/navigation";
 
 import { useContext, useEffect } from "react";
@@ -14,7 +16,9 @@ export default function BlogViewer() {
 
   const post = posts.find(({ metadata }) => metadata.slug === slug);
 
-  statusbarContext.setFilename(post?.metadata.title ?? "unknown");
+  useEffect(() => {
+    statusbarContext.setFilename(post?.metadata.title ?? "unknown");
+  }, [post]);
 
   const keymap = new Map([
     ["j", () => scrollTo({ top: scrollY + 30 })],

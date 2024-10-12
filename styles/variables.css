@@ -1,0 +1,14 @@
+@layer base {
+  :root {
+    --nvim-bg-default: theme(colors[nvim-bg-default]);
+    --nvim-bg-paper: theme(colors[nvim-bg-paper]);
+    --nvim-text-primary: theme(colors[nvim-text-primary]);
+    --nvim-text-primaryDark: theme(colors[nvim-text-primaryDark]);
+    --nvim-text-selection: theme(colors[nvim-text-selection]);
+    --nvim-bg-text-selection: theme(colors[nvim-bg-text-selection]);
+    --nvim-text-secondary: theme(colors[nvim-text-secondary]);
+    --nvim-error: theme(colors[nvim-error]);
+    --nvim-placeholder: theme(colors[nvim-placeholder]);
+    --nvim-primary: theme(colors[nvim-primary]);
+  }
+}

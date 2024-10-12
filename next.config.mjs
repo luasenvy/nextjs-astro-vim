@@ -4,6 +4,7 @@ import remarkHeadingId from "remark-heading-id";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import remarkPrism from "remark-prism";
 
 const separator = "\n---\n\n";
 function extendsMetadataContent() {
@@ -78,6 +79,7 @@ const withMDX = createMDX({
       [remarkHeadingId, { defaults: true, uniqueDefaults: false }],
       remarkFrontmatter,
       [remarkMdxFrontmatter, { name: "metadata" }],
+      remarkPrism,
       extendsMetadataContent,
     ],
   },
