@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { StatusbarContext } from "../layout";
 
 export default function ContactPage() {
   const statusbarContext = useContext(StatusbarContext);
 
-  statusbarContext.setFilename("contact");
+  useEffect(() => {
+    statusbarContext.setFilename("contact");
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center h-full">

@@ -34,13 +34,18 @@ export default forwardRef(function StatusBar(
     if (pathname === "/") throw new Error("cannot quit from root page");
     router.back();
   };
+
+  const cannotOpen = () => {
+    throw new Error("E212: Can't open file for writing");
+  };
+
   const keymap = new Map([
     ["q", quit],
     ["quit", quit],
     ["exit", quit],
-    ["q!", quit],
-    ["wq", quit],
-    ["wq!", quit],
+
+    ["w", cannotOpen],
+    ["wq", cannotOpen],
 
     ["home", () => router.push("/")],
     ["root", () => router.push("/")],
@@ -60,13 +65,22 @@ export default forwardRef(function StatusBar(
     ["set number", () => statusbarContext.setMode("number")],
   ]);
 
+  const toIdleInput = () => {
+    setStatus("NORMAL");
+    setLevel("normal");
+    setDisabled(true);
+    inputRef.current?.blur();
+  };
+
   const handleKeyDownStatus = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const cmd = status.slice(1);
+      let cmd = status.slice(1);
+      if (cmd.endsWith("!")) cmd = cmd.replace(/[!]+$/g, "");
+
       try {
-        const job = keymap.get(cmd);
+        const job = keymap.get(cmd) ?? keymap.get(`${cmd}!`);
         if (!job) throw new Error(`${cmd} command not found`);
 
         job();
@@ -81,10 +95,9 @@ export default forwardRef(function StatusBar(
         inputRef.current?.blur();
       }
     } else if (e.key === "Escape") {
-      setStatus("NORMAL");
-      setLevel("normal");
-      setDisabled(true);
-      inputRef.current?.blur();
+      toIdleInput();
+    } else if (e.key === "Backspace") {
+      if (":" === e.currentTarget.value) toIdleInput();
     }
   };
 

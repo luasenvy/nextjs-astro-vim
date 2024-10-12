@@ -7,14 +7,15 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { StatusbarContext } from "../layout";
 
 import posts from "@/lib/data/posts";
-import styles from "@/styles/blog.module.css";
 
 export default function BlogPage() {
   const listRef = useRef<HTMLUListElement>(null);
 
   const statusbarContext = useContext(StatusbarContext);
 
-  statusbarContext.setFilename("blog");
+  useEffect(() => {
+    statusbarContext.setFilename("blog");
+  }, []);
 
   const [actives, setActives] = useState<Array<boolean>>(
     [true].concat(posts.slice(1).map(() => false))
@@ -87,9 +88,12 @@ export default function BlogPage() {
       {posts.map(({ metadata }, i) => (
         <li
           key={`post-${i}`}
-          className={classnames("px-2 mb-8 grid lg:grid-cols-[3fr_2fr_1fr] gap-4 items-start", {
-            [`${styles["active"]} active`]: actives[i],
-          })}
+          className={classnames(
+            "px-2 mb-8 grid lg:grid-cols-[3fr_2fr_1fr] gap-4 items-start hover:bg-white/5",
+            {
+              [`bg-white/5 active`]: actives[i],
+            }
+          )}
           data-index={i}
           data-href={`/blog/${metadata.slug}`}
         >

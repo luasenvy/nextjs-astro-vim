@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { StatusbarContext } from "./layout";
 
 export default function HomePage() {
   const statusbarContext = useContext(StatusbarContext);
 
-  statusbarContext.setFilename("root");
+  useEffect(() => {
+    statusbarContext.setFilename("root");
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center w-full pt-48">

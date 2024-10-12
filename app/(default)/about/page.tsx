@@ -1,13 +1,15 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { StatusbarContext } from "../layout";
 
 export default function AboutPage() {
   const statusbarContext = useContext(StatusbarContext);
 
-  statusbarContext.setFilename("about");
+  useEffect(() => {
+    statusbarContext.setFilename("about");
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center h-full">

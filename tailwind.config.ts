@@ -1,5 +1,6 @@
 import TailwindTypography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
@@ -12,6 +13,7 @@ export default {
       },
       colors: {
         "nvim-bg": "#1c1c1c",
+        "nvim-text": colors.amber[500],
         "nvim-gray": "#4e4e4e",
         "nvim-green": "#87d787",
         "nvim-statusline": "#303030",
