@@ -22,7 +22,6 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
   const [filename, setFilename] = useState<string>("");
 
   const [lineNumbers, setLineNumbers] = useState<number>(1);
-
   const keymap = new Map([
     [":", () => statusBarRef.current?.activeStatusInput()],
     [
@@ -35,6 +34,26 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
       "G",
       () => {
         scrollTo({ top: document.body.scrollHeight });
+      },
+    ],
+    ["j", () => pathname !== "/blog" && scrollTo({ top: scrollY + 30 })],
+    ["k", () => pathname !== "/blog" && scrollTo({ top: scrollY - 30 })],
+    [
+      "d",
+      (e: KeyboardEvent) => {
+        if (!e.ctrlKey) return;
+        e.preventDefault();
+
+        scrollTo({ top: scrollY + window.innerHeight });
+      },
+    ],
+    [
+      "u",
+      (e: KeyboardEvent) => {
+        if (!e.ctrlKey) return;
+        e.preventDefault();
+
+        scrollTo({ top: scrollY - window.innerHeight });
       },
     ],
   ]);
@@ -50,13 +69,13 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
           if (++count !== 2) return setTimeout(() => (count = 0), 600);
 
           count = 0;
-          return keymap.get("g")?.();
+          return keymap.get("g")?.(e);
         }
 
         const job = keymap.get(e.key);
         if (!job) throw new Error(`${e.key} command not found`);
 
-        job();
+        job(e);
       } catch {}
     };
 

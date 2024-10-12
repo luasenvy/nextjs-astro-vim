@@ -116,14 +116,13 @@ export default forwardRef(function StatusBar(
 
   return (
     <div
-      id="status-bar"
       className={classnames(
         "bg-nvim-bg-paper text-nvim-fg h-6 px-2 flex items-center text-sm gap-4",
         className
       )}
       {...props}
     >
-      <div id="mode" className="flex-grow">
+      <p className="flex-grow">
         <input
           ref={inputRef}
           className={classnames("w-full bg-transparent outline-none", {
@@ -134,13 +133,11 @@ export default forwardRef(function StatusBar(
           onKeyDown={handleKeyDownStatus}
           onInput={handleInputStatus}
         />
-      </div>
-      <div id="file-info" className="flex-shrink-0" title={filename}>
-        {filename.length > 40 ? filename.slice(0, 40) + "..." : filename}
-      </div>
-      <div id="position" className="flex-shrink-0">
-        1:{lineNumbers}
-      </div>
+      </p>
+      <p className="flex-shrink-0 truncate" title={filename}>
+        {filename}
+      </p>
+      <p className="flex-shrink-0">1:{lineNumbers}</p>
     </div>
   );
 });

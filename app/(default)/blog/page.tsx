@@ -9,7 +9,7 @@ import { StatusbarContext } from "../layout";
 import posts from "@/lib/data/posts";
 
 export default function BlogPage() {
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const [actives, setActives] = useState<Array<boolean>>(
     [true].concat(posts.slice(1).map(() => false))
@@ -20,7 +20,7 @@ export default function BlogPage() {
   const keymap = new Map([
     [
       "j",
-      () =>
+      (e: KeyboardEvent) =>
         setActives((prev) => {
           const index = prev.findIndex((active) => active);
           if (index === prev.length - 1) return prev;
@@ -29,30 +29,12 @@ export default function BlogPage() {
     ],
     [
       "k",
-      () =>
+      (e: KeyboardEvent) =>
         setActives((prev) => {
           const index = prev.findIndex((active) => active);
           if (index === 0) return prev;
           return prev.toSpliced(index - 1, 2, true, false);
         }),
-    ],
-    [
-      "d",
-      (e: KeyboardEvent) => {
-        if (!e.ctrlKey) return;
-        e.preventDefault();
-
-        scrollTo({ top: scrollY + window.innerHeight });
-      },
-    ],
-    [
-      "u",
-      (e: KeyboardEvent) => {
-        if (!e.ctrlKey) return;
-        e.preventDefault();
-
-        scrollTo({ top: scrollY - window.innerHeight });
-      },
     ],
     [
       "Enter",
@@ -83,46 +65,72 @@ export default function BlogPage() {
     };
   }, []);
 
+  useEffect(() => {
+    const active = listRef.current?.querySelector<HTMLAnchorElement>(".active");
+
+    if (!active) return;
+
+    const { top, height } = active.getBoundingClientRect();
+
+    if (top < scrollY) return scrollTo({ top });
+
+    const bottomOfElement = top + height;
+    const veiled = active.scrollTop + window.innerHeight - bottomOfElement;
+    if (veiled < 0) scrollTo({ top: window.scrollY + window.innerHeight });
+  }, [actives]);
+
   return (
-    <ul ref={listRef} id="blog-list">
-      {posts.map(({ metadata }, i) => {
-        const date = metadata.date ? new Date(metadata.date) : "unknown";
-        return (
-          <li
-            key={`post-${i}`}
-            className={classnames(
-              "px-2 mb-8 grid lg:grid-cols-[3fr_2fr_1fr] gap-4 items-start hover:bg-nvim-bg-paper/50",
-              {
-                [`bg-nvim-bg-paper/50 active`]: actives[i],
-              }
-            )}
-            data-index={i}
-            data-href={`/blog/${metadata.slug}`}
-          >
-            <Link
-              href={`/blog/${metadata.slug}`}
-              className="hover:underline font-semibold post-link"
-            >
-              {metadata.title}
-            </Link>
+    <section>
+      <div className="p-4 mb-8 border border-nvim-text-primaryDark">
+        <div className="mb-2 grid md:grid-cols-[1fr_3fr_1fr_3fr_1fr_3fr]">
+          <strong className="text-nvim-text-primaryDark">j</strong>
+          <p className="ml-4 md:ml-0">Prev Post</p>
+          <strong className="text-nvim-text-primaryDark">k</strong>
+          <p className="ml-4 md:ml-0">Next Post</p>
+          <strong className="text-nvim-text-primaryDark">Enter</strong>
+          <p className="ml-4 md:ml-0">View Select Post</p>
+        </div>
+      </div>
 
-            <p className="text-sm text-nvim-text-secondary line-clamp-3">{metadata.summary}</p>
-
-            <time
-              dateTime={date instanceof Date ? date.toISOString() : undefined}
-              className="text-right text-sm text-nvim-text-secondary"
+      <div ref={listRef}>
+        {posts.map(({ metadata }, i) => {
+          const date = metadata.date ? new Date(metadata.date) : "unknown";
+          return (
+            <div
+              key={`post-${i}`}
+              className={classnames(
+                "p-2 mb-8 grid lg:grid-cols-[3fr_2fr_1fr] gap-4 items-start hover:bg-nvim-bg-paper/50",
+                {
+                  [`bg-nvim-bg-paper/50 active`]: actives[i],
+                }
+              )}
+              data-index={i}
+              data-href={`/blog/${metadata.slug}`}
             >
-              {date instanceof Date
-                ? new Date(date).toLocaleDateString(undefined, {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })
-                : date}
-            </time>
-          </li>
-        );
-      })}
-    </ul>
+              <Link
+                href={`/blog/${metadata.slug}`}
+                className="hover:underline font-semibold post-link"
+              >
+                {metadata.title}
+              </Link>
+
+              <p className="text-sm text-nvim-text-secondary line-clamp-3">{metadata.summary}</p>
+
+              <p className="text-right text-sm text-nvim-text-secondary">
+                <time dateTime={date instanceof Date ? date.toISOString() : undefined}>
+                  {date instanceof Date
+                    ? new Date(date).toLocaleDateString(undefined, {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })
+                    : date}
+                </time>
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }

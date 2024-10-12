@@ -24,12 +24,12 @@ export default function Sidebar({ mode, tildeRef, lineNumbers = 1 }: SidebarProp
   return (
     <div className="bg-nvim-bg-default text-nvim-placeholder w-6 flex-shrink-0 text-right pr-2">
       <div className="h-full">
-        <div ref={tildeRef}>{isTilde ? "~" : 1}</div>
+        <p ref={tildeRef}>{isTilde ? "~" : 1}</p>
 
         {lineNumbers > 0 &&
           new Array(lineNumbers - 1)
             .fill(0)
-            .map((line, i) => <div key={`line-${i}`}>{isTilde ? "~" : i + 2}</div>)}
+            .map((line, i) => <p key={`line-${i}`}>{isTilde ? "~" : i + 2}</p>)}
       </div>
     </div>
   );

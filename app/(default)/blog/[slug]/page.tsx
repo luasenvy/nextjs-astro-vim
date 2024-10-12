@@ -20,46 +20,6 @@ export default function BlogViewer() {
     statusbarContext.setFilename(post?.metadata.title ?? "unknown");
   }, [post]);
 
-  const keymap = new Map([
-    ["j", () => scrollTo({ top: scrollY + 30 })],
-    ["k", () => scrollTo({ top: scrollY - 30 })],
-    [
-      "d",
-      (e: KeyboardEvent) => {
-        if (!e.ctrlKey) return;
-        e.preventDefault();
-
-        scrollTo({ top: scrollY + window.innerHeight });
-      },
-    ],
-    [
-      "u",
-      (e: KeyboardEvent) => {
-        if (!e.ctrlKey) return;
-        e.preventDefault();
-
-        scrollTo({ top: scrollY - window.innerHeight });
-      },
-    ],
-  ]);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      try {
-        const job = keymap.get(e.key);
-        if (!job) throw new Error(`${e.key} command not found`);
-
-        job(e);
-      } catch {}
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
   return (
     post && (
       <article className="prose-base max-w-none p-10">
