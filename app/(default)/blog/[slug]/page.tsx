@@ -2,14 +2,19 @@
 
 import { useParams } from "next/navigation";
 
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+
+import { StatusbarContext } from "../../layout";
 
 import posts from "@/lib/data/posts";
 
 export default function BlogViewer() {
   const { slug } = useParams();
+  const statusbarContext = useContext(StatusbarContext);
 
   const post = posts.find(({ metadata }) => metadata.slug === slug);
+
+  statusbarContext.setFilename(post?.metadata.title ?? "unknown");
 
   const keymap = new Map([
     ["j", () => scrollTo({ top: scrollY + 30 })],

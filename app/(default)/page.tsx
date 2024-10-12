@@ -9,7 +9,7 @@ export default function HomePage() {
         <p className="mb-2">
           <Link
             href="https://github.com/albertoperdomo2/astro-vim"
-            className="mb-4 hover:underline"
+            className="hover:underline"
             target="_blank"
           >
             astro-vim
@@ -17,63 +17,71 @@ export default function HomePage() {
           is a free and opensource blog template for tech enthusiasts
         </p>
 
-        <p className="mb-2">
+        <p className="mb-8">
           <Link
             href="https://github.com/luasenvy/nextjs-astro-vim"
-            className="mb-4 hover:underline"
+            className="hover:underline"
             target="_blank"
           >
             nextjs-astro-vim
           </Link>{" "}
           is fork of astro-vim
         </p>
-        <div className="p-8 text-nvim-green text-left">
+
+        <div className="grid md:grid-cols-2 text-left">
           <p>
             type :
-            <Link className="underline" href="/about">
+            <Link className="hover:underline" href="/about">
               about
             </Link>
-            <span className="text-nvim-blue">&lt;Enter&gt;</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to view about
-            information
+            <span className="font-bold">&crarr;</span>
           </p>
+          <p className="pl-6 md:pl-0">to view about information</p>
+        </div>
+        <div className="grid md:grid-cols-2 text-left">
           <p>
             type :
-            <Link className="underline" href="/blog">
+            <Link className="hover:underline" href="/blog">
               blog
             </Link>
-            <span className="text-nvim-blue">&lt;Enter&gt;</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to view
-            blog posts
+            <span className="font-bold">&crarr;</span>
           </p>
+          <p className="pl-6 md:pl-0">to view blog posts</p>
+        </div>
+        <div className="grid md:grid-cols-2 text-left">
           <p>
             type :
-            <Link className="underline" href="/contact">
+            <Link className="hover:underline" href="/contact">
               contact
             </Link>
-            <span className="text-nvim-blue">&lt;Enter&gt;</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to view contact details
+            <span className="font-bold">&crarr;</span>
           </p>
-          <br />
+          <p className="pl-6 md:pl-0">to view contact details</p>
+        </div>
+        <div className="mb-8 grid md:grid-cols-2 text-left">
           <p>
-            type /<span className="text-nvim-blue">&lt;Search term&gt;</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to search posts
+            type /<span className="font-bold">&lt;Search term&gt;</span>
           </p>
-          <br />
+          <p className="pl-6 md:pl-0">to search posts</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 text-left">
           <p>
-            type :h<span className="text-nvim-blue">&lt;Enter&gt;</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to
-            view the{" "}
-            <a href="/help" className="underline text-nvim-blue hover:text-blue-800">
+            type :h<span className="font-bold">&crarr;</span>
+          </p>
+          <p className="pl-6 md:pl-0">
+            to view the{" "}
+            <Link href="/help" className="underline">
               help
-            </a>{" "}
+            </Link>{" "}
             page
           </p>
+        </div>
+        <div className="grid md:grid-cols-2 text-left">
           <p>
-            type :q<span className="text-nvim-blue">&lt;Enter&gt;</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to
-            exit
+            type :q<span className="font-bold">&crarr;</span>
           </p>
+          <p className="pl-6 md:pl-0">to exit</p>
         </div>
       </div>
     </div>

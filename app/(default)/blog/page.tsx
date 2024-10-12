@@ -87,18 +87,15 @@ export default function BlogPage() {
           data-index={i}
           data-href={`/blog/${metadata.slug}`}
         >
-          <Link
-            href={`/blog/${metadata.slug}`}
-            className="text-nvim-blue hover:underline font-semibold post-link"
-          >
+          <Link href={`/blog/${metadata.slug}`} className="hover:underline font-semibold post-link">
             {metadata.title}
           </Link>
 
-          <p className="text-sm text-gray-600 line-clamp-3">{metadata.summary}</p>
+          <p className="text-sm text-gray-400 line-clamp-3">{metadata.summary}</p>
 
           <time
             dateTime={new Date(metadata.date).toISOString()}
-            className="text-right text-sm text-gray-500"
+            className="text-right text-sm text-gray-400"
           >
             {new Date(metadata.date).toLocaleDateString(undefined, {
               year: "numeric",

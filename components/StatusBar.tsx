@@ -3,15 +3,22 @@
 import classnames from "classnames";
 
 import { usePathname, useRouter } from "next/navigation";
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useContext, useImperativeHandle, useRef, useState } from "react";
+
+import { StatusbarContext } from "@/app/(default)/layout";
 
 export interface StatusBarRefProps {
   inputRef: React.Ref<HTMLDivElement>;
   activeStatusInput: () => void;
 }
 
+export interface StatusBarProps extends React.HTMLAttributes<HTMLDivElement> {
+  filename: string;
+  lineNumbers: number;
+}
+
 export default forwardRef(function StatusBar(
-  { className, ...props }: React.HTMLAttributes<HTMLDivElement>,
+  { filename = "", lineNumbers = 0, className, ...props }: StatusBarProps,
   ref: React.Ref<StatusBarRefProps>
 ) {
   const router = useRouter();
@@ -21,11 +28,13 @@ export default forwardRef(function StatusBar(
   const [level, setLevel] = useState<"error" | "normal">("normal");
   const [disabled, setDisabled] = useState<boolean>(true);
 
+  const statusbarContext = useContext(StatusbarContext);
+
   const keymap = new Map([
     [
       "q",
       () => {
-        if (pathname === "/") throw new Error("cannot quite from this page");
+        if (pathname === "/") throw new Error("cannot quit from root page");
         router.back();
       },
     ],
@@ -36,6 +45,7 @@ export default forwardRef(function StatusBar(
     ["contact", () => router.push("/contact")],
     ["h", () => router.push("/help")],
     ["help", () => router.push("/help")],
+    ["set number", () => statusbarContext.setMode("number")],
   ]);
 
   const handleKeyDownStatus = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -73,6 +83,7 @@ export default forwardRef(function StatusBar(
     inputRef,
     activeStatusInput: () => {
       setStatus("");
+      setLevel("normal");
       setDisabled(false);
       inputRef.current?.focus();
     },
@@ -99,11 +110,11 @@ export default forwardRef(function StatusBar(
           onInput={handleInputStatus}
         />
       </div>
-      <div id="file-info" className="flex-shrink-0">
-        Landing Page
+      <div id="file-info" className="flex-shrink-0" title={filename}>
+        {filename.length > 40 ? filename.slice(0, 40) + "..." : filename}
       </div>
       <div id="position" className="flex-shrink-0">
-        1:1
+        1:{lineNumbers}
       </div>
     </div>
   );

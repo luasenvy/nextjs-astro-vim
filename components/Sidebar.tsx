@@ -1,25 +1,35 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useContext, useEffect } from "react";
+
+import { StatusbarContext } from "@/app/(default)/layout";
 
 export interface SidebarProps {
   tildeRef?: React.Ref<HTMLDivElement>;
   lineNumbers?: number;
+  mode?: "tilde" | "number";
 }
 
-export default function Sidebar({ tildeRef, lineNumbers = 1 }: SidebarProps) {
+export default function Sidebar({ mode, tildeRef, lineNumbers = 1 }: SidebarProps) {
   const pathname = usePathname();
-  const isTildePage = pathname === "/" || pathname.split("/").filter(Boolean).length === 1;
+  const isTilde = mode === "tilde";
+
+  const statusbarContext = useContext(StatusbarContext);
+
+  useEffect(() => {
+    statusbarContext.setMode("tilde");
+  }, [pathname]);
 
   return (
     <div className="bg-nvim-bg text-nvim-gray w-6 flex-shrink-0 text-right pr-2">
       <div className="h-full">
-        <div ref={tildeRef}>{isTildePage ? "~" : 1}</div>
+        <div ref={tildeRef}>{isTilde ? "~" : 1}</div>
 
         {lineNumbers > 0 &&
           new Array(lineNumbers - 1)
             .fill(0)
-            .map((line, i) => <div key={`line-${i}`}>{isTildePage ? "~" : i + 2}</div>)}
+            .map((line, i) => <div key={`line-${i}`}>{isTilde ? "~" : i + 2}</div>)}
       </div>
     </div>
   );
