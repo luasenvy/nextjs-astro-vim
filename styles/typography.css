@@ -1,27 +1,32 @@
 h1 {
-  @apply text-nvim-primary drop-shadow-[0px_0px_8px_var(--nvim-primary)];
+  @apply text-nvim-primary;
+  filter: drop-shadow(0px 0px 8px color-mix(in srgb, var(--nvim-primary), transparent 40%));
   font-weight: 700;
 }
 
 h2,
 h3,
 h4 {
-  @apply text-nvim-primary drop-shadow-[0px_0px_6px_var(--nvim-primary)];
+  @apply text-nvim-primary;
+  filter: drop-shadow(0px 0px 8px color-mix(in srgb, var(--nvim-primary), transparent 50%));
   font-weight: 600;
 }
 
 h5 {
-  @apply text-nvim-primary drop-shadow-[0px_0px_4px_var(--nvim-primary)];
+  @apply text-nvim-primary;
+  filter: drop-shadow(0px 0px 8px color-mix(in srgb, var(--nvim-primary), transparent 40%));
   font-weight: 500;
 }
 
 h6 {
-  @apply text-nvim-primary drop-shadow-[0px_0px_4px_var(--nvim-primary)];
+  @apply text-nvim-primary;
+  filter: drop-shadow(0px 0px 8px color-mix(in srgb, var(--nvim-primary), transparent 40%));
   font-weight: 400;
 }
 
 a {
-  @apply text-nvim-text-link drop-shadow-[0px_0px_8px_var(--nvim-text-link)];
+  @apply text-nvim-text-link;
+  filter: drop-shadow(0px 0px 4px color-mix(in srgb, var(--nvim-text-link), transparent 60%));
 
   &:hover {
     @apply text-nvim-text-linkDark/80;
@@ -32,16 +37,12 @@ a {
 }
 
 strong {
-  @apply text-nvim-text-primaryDark drop-shadow-[0px_0px_4px_var(--nvim-text-primaryDark)];
+  @apply text-nvim-text-primaryDark;
+  filter: drop-shadow(0px 0px 4px color-mix(in srgb, var(--nvim-text-primaryDark), transparent 80%));
 }
 
 p {
-  @apply drop-shadow-[0px_0px_6px_var(--color-white)];
-
-  &.font-bold {  
-    @apply text-nvim-text-primaryDark drop-shadow-[0px_0px_8px_var(--nvim-text-primaryDark)];
-    font-weight: 700;
-  }
+  filter: drop-shadow(0px 0px 8px color-mix(in srgb, var(--color-white), transparent 75%));
 
   * {
     @apply drop-shadow-none;
@@ -54,6 +55,7 @@ p {
 
 hr {
   @apply border-nvim-placeholder/80;
+  filter: drop-shadow(0px 0px 8px color-mix(in srgb, var(--nvim-placeholder), transparent 20%));
 }
 
 ol {
@@ -88,15 +90,16 @@ ol, ul {
 }
 
 ol > li, ul > li {
-  @apply drop-shadow-[0px_0px_6px_var(--color-white)];
-  ul, ol, li {
+  filter: drop-shadow(0px 0px 6px color-mix(in srgb, var(--color-white), transparent 60%));
+  ul, ol, li, p {
     @apply drop-shadow-none;
   }
 }
 
 
 blockquote {
-  @apply border border-nvim-primary drop-shadow-[0px_0px_1px_var(--nvim-primary)] text-nvim-primary;
+  @apply border border-nvim-primary text-nvim-primary;
+  filter: drop-shadow(0px 0px 8px color-mix(in srgb, var(--nvim-primary), transparent 95%));
 }
 
 del {

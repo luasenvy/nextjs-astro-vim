@@ -24,6 +24,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
   const [lineNumbers, setLineNumbers] = useState<number>(1);
   const keymap = new Map([
     [":", () => statusBarRef.current?.activeStatusInput()],
+    ["/", () => statusBarRef.current?.activeStatusInput()],
     [
       "g",
       () => {

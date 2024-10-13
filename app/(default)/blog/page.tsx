@@ -107,12 +107,14 @@ export default function BlogPage() {
               data-index={i}
               data-href={`/blog/${metadata.slug}`}
             >
-              <Link
-                href={`/blog/${metadata.slug}`}
-                className="hover:underline font-semibold post-link"
-              >
-                {metadata.title}
-              </Link>
+              <p>
+                <Link
+                  href={`/blog/${metadata.slug}`}
+                  className="hover:underline font-semibold post-link"
+                >
+                  {metadata.title}
+                </Link>
+              </p>
 
               <p className="text-sm text-nvim-text-secondary line-clamp-3">{metadata.summary}</p>
 

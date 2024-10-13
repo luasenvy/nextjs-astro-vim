@@ -14,7 +14,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full pt-48">
-      <h1 className="text-4xl font-bold mb-8">Astro Vim</h1>
+      <h1 className="text-4xl mb-8">Astro Vim</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>
         <p className="mb-2">
@@ -45,7 +45,7 @@ export default function HomePage() {
             <Link className="hover:underline" href="/about">
               about
             </Link>
-            <span className="font-bold">&crarr;</span>
+            <strong>&crarr;</strong>
           </p>
           <p className="pl-6 md:pl-0">to view about information</p>
         </div>
@@ -55,7 +55,7 @@ export default function HomePage() {
             <Link className="hover:underline" href="/blog">
               blog
             </Link>
-            <span className="font-bold">&crarr;</span>
+            <strong>&crarr;</strong>
           </p>
           <p className="pl-6 md:pl-0">to view blog posts</p>
         </div>
@@ -65,24 +65,24 @@ export default function HomePage() {
             <Link className="hover:underline" href="/contact">
               contact
             </Link>
-            <span className="font-bold">&crarr;</span>
+            <strong>&crarr;</strong>
           </p>
           <p className="pl-6 md:pl-0">to view contact details</p>
         </div>
         <div className="mb-8 grid md:grid-cols-2 text-left">
           <p>
-            type /<span className="font-bold">&lt;Search term&gt;</span>
+            type /<strong>&lt;Search term&gt;</strong>
           </p>
           <p className="pl-6 md:pl-0">to search posts</p>
         </div>
 
         <div className="grid md:grid-cols-2 text-left">
           <p>
-            type :h<span className="font-bold">&crarr;</span>
+            type :h<strong>&crarr;</strong>
           </p>
           <p className="pl-6 md:pl-0">
             to view the{" "}
-            <Link href="/help" className="underline">
+            <Link href="/help" className="hover:underline">
               help
             </Link>{" "}
             page
@@ -90,7 +90,7 @@ export default function HomePage() {
         </div>
         <div className="grid md:grid-cols-2 text-left">
           <p>
-            type :q<span className="font-bold">&crarr;</span>
+            type :q<strong>&crarr;</strong>
           </p>
           <p className="pl-6 md:pl-0">to exit</p>
         </div>

@@ -97,7 +97,7 @@ export default forwardRef(function StatusBar(
     } else if (e.key === "Escape") {
       toIdleInput();
     } else if (e.key === "Backspace") {
-      if (":" === e.currentTarget.value) toIdleInput();
+      if (e.currentTarget.value.length === 1) toIdleInput();
     }
   };
 
@@ -122,7 +122,7 @@ export default forwardRef(function StatusBar(
       )}
       {...props}
     >
-      <p className="flex-grow">
+      <p className="flex-grow min-w-20">
         <input
           ref={inputRef}
           className={classnames("w-full bg-transparent outline-none", {
@@ -134,7 +134,7 @@ export default forwardRef(function StatusBar(
           onInput={handleInputStatus}
         />
       </p>
-      <p className="flex-shrink-0 truncate" title={filename}>
+      <p className="max-w-60 truncate" title={filename}>
         {filename}
       </p>
       <p className="flex-shrink-0">1:{lineNumbers}</p>

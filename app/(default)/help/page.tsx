@@ -59,7 +59,7 @@ export default function HelpPage() {
 
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <h1 className="text-4xl font-bold mb-8">Help page</h1>
+      <h1 className="text-4xl mb-8">Help page</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>
         <div className="flex flex-col text-left justify-left p-10">
@@ -74,7 +74,9 @@ export default function HelpPage() {
               <h2 className="mt-16 mb-4 text-2xl">{title}</h2>
               {Array.from(map.entries()).map(([key, description], j) => (
                 <div key={`key-description-${j}`} className="mb-2 grid md:grid-cols-[1fr_5fr]">
-                  <p className="font-bold">{key}</p>
+                  <p>
+                    <strong>{key}</strong>
+                  </p>
                   <p className="pl-4 md:pl-0">{description}</p>
                 </div>
               ))}
