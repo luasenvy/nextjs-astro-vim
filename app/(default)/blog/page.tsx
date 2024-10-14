@@ -81,17 +81,6 @@ export default function BlogPage() {
 
   return (
     <section>
-      <div className="p-4 mb-8 border border-nvim-text-primaryDark">
-        <div className="mb-2 grid md:grid-cols-[1fr_3fr_1fr_3fr_1fr_3fr]">
-          <strong className="text-nvim-text-primaryDark">j</strong>
-          <p className="ml-4 md:ml-0">Prev Post</p>
-          <strong className="text-nvim-text-primaryDark">k</strong>
-          <p className="ml-4 md:ml-0">Next Post</p>
-          <strong className="text-nvim-text-primaryDark">Enter</strong>
-          <p className="ml-4 md:ml-0">View Select Post</p>
-        </div>
-      </div>
-
       <div ref={listRef}>
         {posts.map(({ metadata }, i) => {
           const date = metadata.date ? new Date(metadata.date) : "unknown";
