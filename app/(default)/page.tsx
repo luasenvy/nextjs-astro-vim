@@ -14,7 +14,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full pt-48">
+    <section className="flex flex-col items-center justify-center w-full md:h-[90vh]">
       <h1 className="text-4xl mb-8">Astro Vim</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>
@@ -96,6 +96,6 @@ export default function HomePage() {
           <p className="pl-6 md:pl-0">to exit</p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

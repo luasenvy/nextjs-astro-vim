@@ -59,7 +59,7 @@ export default function HelpPage() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <section className="flex flex-col items-center justify-center md:h-[90vh]">
       <h1 className="text-4xl mb-8">Help page</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>
@@ -85,6 +85,6 @@ export default function HelpPage() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -22,10 +22,12 @@ export default function BlogViewer() {
 
   return (
     post && (
-      <article className="prose-base max-w-none p-10">
-        <h1>{post.metadata.title}</h1>
-        {post.Component && <post.Component />}
-      </article>
+      <section className="max-w-none p-10">
+        <article className="prose-base">
+          <h1>{post.metadata.title}</h1>
+          {post.Component && <post.Component />}
+        </article>
+      </section>
     )
   );
 }
