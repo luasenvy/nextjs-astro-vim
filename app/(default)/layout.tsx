@@ -37,6 +37,15 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
         scrollTo({ top: document.body.scrollHeight });
       },
     ],
+    /**
+     * `j`, `k` is different action for blog page.
+     * in blog page, `j` is next post, `k` is previous post.
+     * implemented in @/app/(default)/blog/page.tsx
+     *
+     * event listener is splitted in each page.
+     * so, `e.stopPropagtion()` is not effective.
+     * little ugly code but it works.
+     */
     ["j", () => pathname !== "/blog" && scrollTo({ top: scrollY + 30 })],
     ["k", () => pathname !== "/blog" && scrollTo({ top: scrollY - 30 })],
     [
