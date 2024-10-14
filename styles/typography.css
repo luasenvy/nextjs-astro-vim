@@ -90,7 +90,7 @@ ol, ul {
 }
 
 ol > li, ul > li {
-  filter: drop-shadow(0px 0px 6px color-mix(in srgb, var(--color-white), transparent 60%));
+  filter: drop-shadow(0px 0px 6px color-mix(in srgb, var(--color-white), transparent 75%));
   ul, ol, li, p {
     @apply drop-shadow-none;
   }
@@ -103,7 +103,10 @@ blockquote {
 }
 
 del {
-  text-decoration: var(--nvim-error) solid line-through;
+  text-decoration-color: var(--nvim-error);
+  text-decoration-line: line-through;
+  text-decoration-style: solid;
+  text-decoration-thickness: 2px;
 }
 
 kbd {
@@ -112,7 +115,11 @@ kbd {
 
 mark {
   @apply bg-transparent text-nvim-text-primaryDark;
-  text-decoration: var(--nvim-primary) wavy underline;
+  text-decoration-color: var(--nvim-primary);
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-thickness: 2px;
+
   font-weight: 700;
 }
 
