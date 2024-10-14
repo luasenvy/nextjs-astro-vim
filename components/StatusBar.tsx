@@ -5,6 +5,8 @@ import classnames from "classnames";
 import { usePathname, useRouter } from "next/navigation";
 import { forwardRef, useContext, useImperativeHandle, useRef, useState } from "react";
 
+import { withTransitionBack, withTransitionTo } from "./ViewTransitionLink";
+
 import { StatusbarContext } from "@/app/(default)/layout";
 
 export interface StatusBarRefProps {
@@ -32,7 +34,7 @@ export default forwardRef(function StatusBar(
 
   const quit = () => {
     if (pathname === "/") throw new Error("cannot quit from root page");
-    router.back();
+    withTransitionBack(router);
   };
 
   const cannotOpen = () => {
@@ -47,20 +49,20 @@ export default forwardRef(function StatusBar(
     ["w", cannotOpen],
     ["wq", cannotOpen],
 
-    ["home", () => router.push("/")],
-    ["root", () => router.push("/")],
+    ["home", () => withTransitionTo(router, "/")],
+    ["root", () => withTransitionTo(router, "/")],
 
-    ["who", () => router.push("/about")],
-    ["about", () => router.push("/about")],
+    ["who", () => withTransitionTo(router, "/about")],
+    ["about", () => withTransitionTo(router, "/about")],
 
-    ["blog", () => router.push("/blog")],
-    ["post", () => router.push("/blog")],
-    ["posts", () => router.push("/blog")],
+    ["blog", () => withTransitionTo(router, "/blog")],
+    ["post", () => withTransitionTo(router, "/blog")],
+    ["posts", () => withTransitionTo(router, "/blog")],
 
-    ["contact", () => router.push("/contact")],
+    ["contact", () => withTransitionTo(router, "/contact")],
 
-    ["h", () => router.push("/help")],
-    ["help", () => router.push("/help")],
+    ["h", () => withTransitionTo(router, "/help")],
+    ["help", () => withTransitionTo(router, "/help")],
 
     ["set number", () => statusbarContext.setMode("number")],
   ]);

@@ -1,14 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import { useContext, useEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 
 import { StatusbarContext } from "./layout";
+
+import Link from "@/components/ViewTransitionLink";
 
 export default function HomePage() {
   const statusbarContext = useContext(StatusbarContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     statusbarContext.setFilename("root");
   }, []);
 

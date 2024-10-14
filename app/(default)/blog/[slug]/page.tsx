@@ -4,7 +4,7 @@ import "prismjs/themes/prism-tomorrow.css";
 
 import { useParams } from "next/navigation";
 
-import { useContext, useEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 
 import { StatusbarContext } from "../../layout";
 
@@ -16,7 +16,7 @@ export default function BlogViewer() {
 
   const post = posts.find(({ metadata }) => metadata.slug === slug);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     statusbarContext.setFilename(post?.metadata.title ?? "unknown");
   }, [post]);
 

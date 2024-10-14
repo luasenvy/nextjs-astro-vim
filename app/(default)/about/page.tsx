@@ -1,13 +1,13 @@
 "use client";
 
-import { useContext, useEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 
 import { StatusbarContext } from "../layout";
 
 export default function AboutPage() {
   const statusbarContext = useContext(StatusbarContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     statusbarContext.setFilename("about");
   }, []);
 

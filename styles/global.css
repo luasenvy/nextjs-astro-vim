@@ -3,4 +3,5 @@
 @import "tailwindcss/utilities";
 
 @import "./variables.css";
+@import "./layout.css";
 @import "./typography.css";

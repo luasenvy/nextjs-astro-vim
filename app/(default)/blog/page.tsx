@@ -1,14 +1,18 @@
 "use client";
 
 import classnames from "classnames";
-import Link from "next/link";
-import { useContext, useEffect, useRef, useState } from "react";
+
+import { useRouter } from "next/navigation";
+import { useCallback, useContext, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import { StatusbarContext } from "../layout";
+
+import Link, { withTransitionTo } from "@/components/ViewTransitionLink";
 
 import posts from "@/lib/data/posts";
 
 export default function BlogPage() {
+  const router = useRouter();
   const listRef = useRef<HTMLDivElement>(null);
 
   const [actives, setActives] = useState<Array<boolean>>(
@@ -17,37 +21,39 @@ export default function BlogPage() {
 
   const statusbarContext = useContext(StatusbarContext);
 
-  const keymap = new Map([
-    [
-      "j",
-      (e: KeyboardEvent) =>
-        setActives((prev) => {
-          const index = prev.findIndex((active) => active);
-          if (index === prev.length - 1) return prev;
-          return prev.toSpliced(index, 2, false, true);
-        }),
-    ],
-    [
-      "k",
-      (e: KeyboardEvent) =>
-        setActives((prev) => {
-          const index = prev.findIndex((active) => active);
-          if (index === 0) return prev;
-          return prev.toSpliced(index - 1, 2, true, false);
-        }),
-    ],
-    [
-      "Enter",
-      () => listRef.current?.querySelector<HTMLAnchorElement>(".active a.post-link")?.click(),
-    ],
-  ]);
+  const keymap = useMemo(() => {
+    return new Map([
+      [
+        "j",
+        (e: KeyboardEvent) =>
+          setActives((prev) => {
+            const index = prev.findIndex((active) => active);
+            if (index === prev.length - 1) return prev;
+            return prev.toSpliced(index, 2, false, true);
+          }),
+      ],
+      [
+        "k",
+        (e: KeyboardEvent) =>
+          setActives((prev) => {
+            const index = prev.findIndex((active) => active);
+            if (index === 0) return prev;
+            return prev.toSpliced(index - 1, 2, true, false);
+          }),
+      ],
+      [
+        "Enter",
+        () => {
+          const index = actives.findIndex((active) => active);
+          if (!posts[index]) return;
+          withTransitionTo(router, `/blog/${posts[index].metadata.slug}`);
+        },
+      ],
+    ]);
+  }, [actives, posts, router]);
 
-  useEffect(() => {
-    statusbarContext.setFilename("blog");
-  }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
 
       try {
@@ -56,28 +62,38 @@ export default function BlogPage() {
 
         job(e);
       } catch {}
-    };
+    },
+    [keymap]
+  );
 
+  useLayoutEffect(() => {
+    statusbarContext.setFilename("blog");
+  }, []);
+
+  useLayoutEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [handleKeyDown]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const active = listRef.current?.querySelector<HTMLAnchorElement>(".active");
 
     if (!active) return;
 
-    const { top, height } = active.getBoundingClientRect();
+    const { scrollTop, offsetHeight: viewHeight } = document.documentElement;
+    const { offsetTop, offsetHeight } = active;
 
-    if (top < scrollY) return scrollTo({ top });
+    const bottomOfScreen = scrollTop + viewHeight - 24; // StatusBar Padding
+    const bottomOfElement = offsetTop + offsetHeight;
 
-    const bottomOfElement = top + height;
-    const veiled = active.scrollTop + window.innerHeight - bottomOfElement;
-    if (veiled < 0) scrollTo({ top: window.scrollY + window.innerHeight });
-  }, [actives]);
+    if (bottomOfElement > bottomOfScreen)
+      return scrollTo({ top: scrollTop + (bottomOfElement - bottomOfScreen) });
+
+    if (offsetTop < scrollTop) return scrollTo({ top: scrollTop - (scrollTop - offsetTop) });
+  }, [listRef, actives]);
 
   return (
     <section>
@@ -93,8 +109,6 @@ export default function BlogPage() {
                   [`bg-nvim-bg-paper/50 active`]: actives[i],
                 }
               )}
-              data-index={i}
-              data-href={`/blog/${metadata.slug}`}
             >
               <p>
                 <Link

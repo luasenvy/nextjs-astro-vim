@@ -1,18 +1,19 @@
 "use client";
 
-import Link from "next/link";
-import { Fragment, useContext, useEffect } from "react";
+import { Fragment, useContext, useLayoutEffect } from "react";
 
 import { StatusbarContext } from "../layout";
+
+import Link from "@/components/ViewTransitionLink";
 
 const keymapHelp = new Map<string, Map<string, React.ReactNode>>([
   [
     "Global Keyboard Shortcut",
     new Map<string, React.ReactNode>([
-      ["gg", "Scroll to top"],
-      ["G", "Scroll to bottom"],
       ["j", "Scroll to down"],
       ["k", "Scroll to up"],
+      ["G", "Scroll to bottom"],
+      ["gg", "Scroll to top"],
       ["Ctrl + d", "Page Down"],
       ["Ctrl + u", "Page Up"],
     ]),
@@ -53,8 +54,8 @@ const keymapHelp = new Map<string, Map<string, React.ReactNode>>([
 export default function HelpPage() {
   const statusbarContext = useContext(StatusbarContext);
 
-  useEffect(() => {
-    statusbarContext.setFilename("HELP");
+  useLayoutEffect(() => {
+    statusbarContext.setFilename("Help");
   }, []);
 
   return (

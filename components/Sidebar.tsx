@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 
 import { StatusbarContext } from "@/app/(default)/layout";
 
@@ -17,7 +17,7 @@ export default function Sidebar({ mode, tildeRef, lineNumbers = 1 }: SidebarProp
 
   const statusbarContext = useContext(StatusbarContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     statusbarContext.setMode("tilde");
   }, [pathname]);
 
