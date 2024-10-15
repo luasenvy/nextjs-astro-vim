@@ -80,6 +80,7 @@ ul {
 }
 
 ol, ul {
+  @apply relative;
   ol, ul {
     &:before {
       @apply absolute -left-7 h-full border-l border-l-nvim-placeholder;
