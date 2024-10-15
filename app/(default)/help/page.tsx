@@ -55,7 +55,7 @@ const keymapHelp = new Map<string, Map<string, React.ReactNode>>([
       [
         "/",
         <>
-          e.g. /hello<strong>&crarr;</strong>
+          e.g. /<strong>hello&crarr;</strong>
         </>,
       ],
       ["n", "Find Next"],

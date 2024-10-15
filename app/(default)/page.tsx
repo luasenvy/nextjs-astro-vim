@@ -72,7 +72,7 @@ export default function HomePage() {
         </div>
         <div className="mb-8 grid md:grid-cols-2 text-left">
           <p>
-            type /<strong>&lt;Search term&gt;</strong>
+            type /<strong>&lt;Search term&gt;&crarr;</strong>
           </p>
           <p className="pl-6 md:pl-0">to search posts</p>
         </div>
