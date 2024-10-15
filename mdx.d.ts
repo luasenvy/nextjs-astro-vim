@@ -10,6 +10,7 @@ declare module "*.mdx" {
     featured: boolean;
     content: string;
     summary: string;
+    headings: Array<string>;
   }
 
   function MDXContent(props: MDXProps): Element;

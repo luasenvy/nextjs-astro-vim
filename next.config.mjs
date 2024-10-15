@@ -29,6 +29,8 @@ function extendsMetadataContent() {
     } = properties.find(({ key }) => "title" === key.value);
     const trimed = file.value.trim();
     const content = trimed.substring(trimed.indexOf(separator, 1) + separator.length);
+    const withoutCode = content.replace(/```[^]+?```/g, "");
+
     properties.push({
       type: "Property",
       method: false,
@@ -37,6 +39,19 @@ function extendsMetadataContent() {
       kind: "init",
       key: { type: "Literal", value: "content" },
       value: { type: "Literal", value: content },
+    });
+    properties.push({
+      type: "Property",
+      method: false,
+      shorthand: false,
+      computed: false,
+      kind: "init",
+      key: { type: "Literal", value: "headings" },
+      value: {
+        type: "ArrayExpression",
+        elements:
+          withoutCode.match(/^#[^\n]+/gm)?.map((value) => ({ type: "Literal", value })) ?? [],
+      },
     });
     properties.push({
       type: "Property",
