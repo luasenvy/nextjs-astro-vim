@@ -56,18 +56,8 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
          * so, `e.stopPropagtion()` is not effective.
          * little ugly code but it works.
          */
-        [
-          "j",
-          () => {
-            if (pathname !== "/blog") scrollTo({ top: scrollY + 30 });
-          },
-        ],
-        [
-          "k",
-          () => {
-            if (pathname !== "/blog") scrollTo({ top: scrollY - 30 });
-          },
-        ],
+        ["j", () => pathname !== "/blog" && scrollTo({ top: scrollY + 30 })],
+        ["k", () => pathname !== "/blog" && scrollTo({ top: scrollY - 30 })],
         [
           "d",
           (e: KeyboardEvent) => {

@@ -50,9 +50,14 @@ const keymapHelp = new Map<string, Map<string, React.ReactNode>>([
     ]),
   ],
   [
-    "Find In Page",
+    "Find in Page",
     new Map<string, React.ReactNode>([
-      ["/search keyword", "Find In Page"],
+      [
+        "/",
+        <>
+          e.g. /hello<strong>&crarr;</strong>
+        </>,
+      ],
       ["n", "Find Next"],
       ["Shift + n", "Find Prev"],
     ]),

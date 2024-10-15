@@ -22,5 +22,9 @@
 
 - [x] Change Line Number Render Process ( Default Tilde -> Command `:set number` )
 - [x] Improve Help Page
-- [ ] Search Post & Words
+- [x] Find in page
+- [x] StatusBar Title & Line Numbers
+- [x] Mail Command
+- [ ] Search Post
+- [ ] Site Configuration
 - [ ] IBM DOS And Green Themes [cool-retro-term](https://github.com/Swordfish90/cool-retro-term)

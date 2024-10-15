@@ -2,12 +2,22 @@
 
 import classnames from "classnames";
 
+import mailgo from "mailgo";
 import { usePathname, useRouter } from "next/navigation";
-import { forwardRef, useContext, useImperativeHandle, useRef, useState } from "react";
+import {
+  forwardRef,
+  useContext,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { withTransitionBack, withTransitionTo } from "./ViewTransitionLink";
 
 import { StatusbarContext } from "@/app/(default)/layout";
+
+import "mailgo/dist/mailgo.css";
 
 type Mode = "search" | "command";
 
@@ -29,6 +39,7 @@ export default forwardRef(function StatusBar(
   const router = useRouter();
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
+  const mailRef = useRef<HTMLAnchorElement>(null);
   const [status, setStatus] = useState<string>("NORMAL");
   const [mode, setMode] = useState<Mode>("command");
   const [keyword, setKeyword] = useState<string>("");
@@ -36,6 +47,10 @@ export default forwardRef(function StatusBar(
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const statusbarContext = useContext(StatusbarContext);
+
+  useLayoutEffect(() => {
+    mailgo({ dark: true });
+  }, []);
 
   const quit = () => {
     if (pathname === "/") throw new Error("cannot quit from root page");
@@ -65,6 +80,8 @@ export default forwardRef(function StatusBar(
     ["posts", () => withTransitionTo(router, "/blog")],
 
     ["contact", () => withTransitionTo(router, "/contact")],
+    ["mail", () => mailRef.current?.click()],
+    ["mailto", () => mailRef.current?.click()],
 
     ["h", () => withTransitionTo(router, "/help")],
     ["help", () => withTransitionTo(router, "/help")],
@@ -80,15 +97,24 @@ export default forwardRef(function StatusBar(
   };
 
   const search = (_keyword: string) => {
+    window.getSelection()?.empty?.(); // chrome or ie
+    window.getSelection()?.removeAllRanges?.(); // firefox
+
     setKeyword(_keyword);
 
     /**
      * search next is not reusing keyword.
      * because, keyword is possible to not change when search first.
-     * so, use _keyword for search next.
      */
     // @ts-expect-error: native API for window
     window.find(_keyword ?? keyword, false, false, true);
+    /**
+     * window.find() method is always return in javascript runtime.
+     * in chrome devtools console, correctly return boolean value.
+     * in this case, check a selection focusNode is TextNode or not.
+     */
+    if (document.getSelection()?.focusNode?.nodeType !== Node.TEXT_NODE)
+      throw new Error(`${_keyword} is not found in this page`);
   };
 
   const searchNext = (backward: boolean = false) => {
@@ -169,6 +195,14 @@ export default forwardRef(function StatusBar(
         {filename}
       </p>
       <p className="flex-shrink-0">1:{lineNumbers}</p>
+      <a
+        ref={mailRef}
+        href="mailto:your@name.com"
+        className="hidden"
+        onClick={(e) => e.preventDefault()}
+      >
+        mail
+      </a>
     </div>
   );
 });
