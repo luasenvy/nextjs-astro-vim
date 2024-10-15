@@ -2,15 +2,7 @@
 
 import debounce from "lodash.debounce";
 import { usePathname } from "next/navigation";
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { createContext, useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import Sidebar from "@/components/Sidebar";
 import type { StatusBarRefProps } from "@/components/StatusBar";
@@ -30,11 +22,19 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
   const [filename, setFilename] = useState<string>("");
 
   const [lineNumbers, setLineNumbers] = useState<number>(1);
+
+  const search = (e: KeyboardEvent) => {
+    if (document.activeElement !== statusBarRef.current?.inputRef?.current)
+      statusBarRef.current?.searchNext(e.shiftKey);
+  };
+
   const keymap = useMemo(
     () =>
       new Map([
-        [":", () => statusBarRef.current?.activeStatusInput()],
-        ["/", () => statusBarRef.current?.activeStatusInput()],
+        [":", () => statusBarRef.current?.activeStatusInput("command")],
+        ["/", () => statusBarRef.current?.activeStatusInput("search")],
+        ["n", search],
+        ["N", search],
         [
           "g",
           () => {
@@ -145,7 +145,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
   return (
     <StatusbarContext.Provider
       value={{
-        setMode: (mode: "tilde" | "number") => setMode(mode),
+        setMode: (mode: "tilde" | "number" = "tilde") => setMode(mode),
         setFilename: (filename: string) => setFilename(filename),
       }}
     >

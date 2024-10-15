@@ -49,6 +49,14 @@ const keymapHelp = new Map<string, Map<string, React.ReactNode>>([
       [":q", "Page Move Back"],
     ]),
   ],
+  [
+    "Find In Page",
+    new Map<string, React.ReactNode>([
+      ["/search keyword", "Find In Page"],
+      ["n", "Find Next"],
+      ["Shift + n", "Find Prev"],
+    ]),
+  ],
 ]);
 
 export default function HelpPage() {
@@ -59,7 +67,7 @@ export default function HelpPage() {
   }, []);
 
   return (
-    <section className="flex flex-col items-center justify-center md:h-[90vh]">
+    <section className="flex flex-col items-center justify-center">
       <h1 className="text-4xl mb-8">Help page</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>

@@ -9,9 +9,12 @@ import { withTransitionBack, withTransitionTo } from "./ViewTransitionLink";
 
 import { StatusbarContext } from "@/app/(default)/layout";
 
+type Mode = "search" | "command";
+
 export interface StatusBarRefProps {
-  inputRef: React.Ref<HTMLDivElement>;
-  activeStatusInput: () => void;
+  inputRef: React.RefObject<HTMLInputElement>;
+  activeStatusInput: (m: Mode) => void;
+  searchNext: (backward?: boolean) => void;
 }
 
 export interface StatusBarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -27,6 +30,8 @@ export default forwardRef(function StatusBar(
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<string>("NORMAL");
+  const [mode, setMode] = useState<Mode>("command");
+  const [keyword, setKeyword] = useState<string>("");
   const [level, setLevel] = useState<"error" | "normal">("normal");
   const [disabled, setDisabled] = useState<boolean>(true);
 
@@ -74,18 +79,40 @@ export default forwardRef(function StatusBar(
     inputRef.current?.blur();
   };
 
+  const search = (_keyword: string) => {
+    setKeyword(_keyword);
+
+    /**
+     * search next is not reusing keyword.
+     * because, keyword is possible to not change when search first.
+     * so, use _keyword for search next.
+     */
+    // @ts-expect-error: native API for window
+    window.find(_keyword ?? keyword, false, false, true);
+  };
+
+  const searchNext = (backward: boolean = false) => {
+    // @ts-expect-error: native API for window
+    window.find(keyword, false, backward, true);
+  };
+
   const handleKeyDownStatus = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
       let cmd = status.slice(1);
-      if (cmd.endsWith("!")) cmd = cmd.replace(/[!]+$/g, "");
 
       try {
-        const job = keymap.get(cmd) ?? keymap.get(`${cmd}!`);
-        if (!job) throw new Error(`${cmd} command not found`);
+        let job;
+        if (mode === "command") {
+          if (cmd.endsWith("!")) cmd = cmd.replace(/[!]+$/g, "");
 
-        job();
+          job = keymap.get(cmd) ?? keymap.get(`${cmd}!`);
+          if (!job) throw new Error(`${cmd} command not found`);
+          job();
+        } else {
+          search(cmd);
+        }
 
         setStatus("NORMAL");
         setLevel("normal");
@@ -108,12 +135,14 @@ export default forwardRef(function StatusBar(
 
   useImperativeHandle(ref, () => ({
     inputRef,
-    activeStatusInput: () => {
+    activeStatusInput: (mode: Mode) => {
       setStatus("");
       setLevel("normal");
+      setMode(mode);
       setDisabled(false);
       inputRef.current?.focus();
     },
+    searchNext,
   }));
 
   return (
