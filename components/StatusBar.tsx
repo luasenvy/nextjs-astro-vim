@@ -4,14 +4,7 @@ import classnames from "classnames";
 
 import mailgo from "mailgo";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  forwardRef,
-  useContext,
-  useImperativeHandle,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle, useRef, useState } from "react";
 
 import { withTransitionBack, withTransitionTo } from "./ViewTransitionLink";
 
@@ -47,10 +40,6 @@ export default forwardRef(function StatusBar(
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const statusbarContext = useContext(StatusbarContext);
-
-  useLayoutEffect(() => {
-    mailgo({ dark: true });
-  }, []);
 
   const quit = () => {
     if (pathname === "/") throw new Error("cannot quit from root page");
@@ -171,6 +160,24 @@ export default forwardRef(function StatusBar(
     searchNext,
   }));
 
+  useEffect(() => {
+    mailgo({
+      dark: true,
+      loadCSS: false,
+      actions: {
+        skype: true,
+        telegram: true,
+        whatsapp: true,
+        copy: true,
+        default: true,
+        gmail: true,
+        outlook: true,
+        yahoo: false,
+        custom: false,
+      },
+    });
+  }, []);
+
   return (
     <div
       className={classnames(
@@ -197,8 +204,9 @@ export default forwardRef(function StatusBar(
       <p className="flex-shrink-0">1:{lineNumbers}</p>
       <a
         ref={mailRef}
-        href="mailto:your@name.com"
-        className="hidden"
+        className="hidden mailgo"
+        data-address="luas.envy"
+        data-domain="gmail.com"
         onClick={(e) => e.preventDefault()}
       >
         mail

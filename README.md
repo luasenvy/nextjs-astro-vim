@@ -25,6 +25,7 @@
 - [x] Find in page
 - [x] StatusBar Title & Line Numbers
 - [x] Mail Command
+  * mailgo upport keyboard shortcut internally. but not useful and conflicts with this site. maybe change library later.
 - [ ] Search Post
 - [ ] Site Configuration
 - [ ] IBM DOS And Green Themes [cool-retro-term](https://github.com/Swordfish90/cool-retro-term)
