@@ -16,8 +16,6 @@ export default function BlogViewer() {
 
   const post = posts.find(({ metadata }) => metadata.slug === slug);
 
-  if (!post) return redirect("/404");
-
   useLayoutEffect(() => {
     statusbarContext.setFilename(post?.metadata.title ?? "unknown");
   }, [post]);

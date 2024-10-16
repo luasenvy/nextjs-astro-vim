@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import posts from "@/lib/data/posts";
 
 type Props = {
@@ -5,9 +7,11 @@ type Props = {
 };
 
 export async function generateMetadata({ params: { slug } }: Props) {
-  const { metadata: { title = "Not Found", description } = {} } =
-    posts.find(({ metadata }) => metadata.slug === slug) ?? {};
+  const post = posts.find(({ metadata }) => metadata.slug === slug);
 
+  if (!post) return notFound();
+
+  const { title, description } = post.metadata;
   return { title, description };
 }
 
