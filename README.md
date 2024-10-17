@@ -25,7 +25,10 @@
 - [x] Find in page
 - [x] StatusBar Title & Line Numbers
 - [x] Mail Command
-  * mailgo support keyboard shortcut internally. but conflicts with this site. maybe change library later.
-- [ ] Search Post
+  - mailgo support keyboard shortcut internally. but conflicts with this site. maybe change library later.
 - [ ] Site Configuration
+- [ ] Search Post
+- SEO each Post
+  - [x] title, description
+  - [ ] open graph
 - [ ] IBM DOS And Green Themes [cool-retro-term](https://github.com/Swordfish90/cool-retro-term)
