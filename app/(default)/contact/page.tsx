@@ -14,7 +14,7 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <section className="flex flex-col items-center justify-center md:h-[90vh]">
+    <section className="flex flex-col items-center justify-center">
       <h1 className="text-4xl mb-8">Get in touch!</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>

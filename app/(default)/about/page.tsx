@@ -12,7 +12,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center">
       <h1 className="text-4xl mb-8">About</h1>
       <div className="text-center">
         <p className="mb-4">version 0.0.1</p>

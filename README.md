@@ -1,5 +1,7 @@
 # nextjs-astro-vim
 
+![preview](./preview.gif)
+
 [Astro Vim Theme](https://github.com/albertoperdomo2/astro-vim) for [Next.js](https://nextjs.org/)<sub>(14+ App Router)</sub>
 
 ## Tested Environment
